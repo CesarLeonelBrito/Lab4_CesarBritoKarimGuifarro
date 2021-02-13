@@ -186,9 +186,6 @@ public class Lab4_CesarBrioKarimGuifarro {
                                         + "7. Edad\n"
                                         + "8. Nacimiento\n"
                                         + "9. Estrellas\n"
-                                        + "10. Habilidad Pateadora\n"
-                                        + "11. Fuerza\n"
-                                        + "12. Habilidad Pateadora\n"
                                         + "Ingrese su opcion: ");
                                 int op = sc.nextInt();
                                 switch (op) {
@@ -255,9 +252,6 @@ public class Lab4_CesarBrioKarimGuifarro {
                                         + "7. Edad\n"
                                         + "8. Nacimiento\n"
                                         + "9. Estrellas\n"
-                                        + "10. Tiro de tres\n"
-                                        + "11. Tiro de dos\n"
-                                        + "12. Manejo de Balon\n"
                                         + "Ingrese su opcion: ");
                                 int op = sc.nextInt();
                                 switch (op) {
@@ -317,75 +311,6 @@ public class Lab4_CesarBrioKarimGuifarro {
                         } else {
                             System.out.println("Jugador no disponible");
                         }
-                        /*ArrayList<Jugador> jugadores = new ArrayList();
-                        System.out.println("******JUGADORES******");
-                        System.out.println("***PATEADORES***");
-                        for (int i = 0; i < 3; i++) {
-                            System.out.println("Nuevo Jugador");
-                            System.out.print("Ingrese el nombre del jugador: ");
-                            String nombre = sc.next();
-                            System.out.print("Ingrese el apodo del jugador: ");
-                            String apodo = sc.next();
-                            System.out.print("Ingrese el numero de camiseta: ");
-                            int numeroCamiseta = sc.nextInt();
-                            System.out.print("Ingrese el equipo de futbol favorito: ");
-                            String equipoFutFsvorito = sc.next();
-                            System.out.print("Ingrese el equipo de Basketball favorito: ");
-                            String equipoFBaskFsvorito = sc.next();
-                            boolean mayor;
-                            System.out.print("Es mayor de edad[s/n]: ");
-                            char age = sc.next().charAt(0);
-                            if (age == 's' || age == 'S') {
-                                mayor = true;
-                            } else {
-                                mayor = false;
-                            }
-                            System.out.print("Ingrese el año de nacimiento: ");
-                            int nacimiento = sc.nextInt();
-                            System.out.print("Ingrese la cantidad de estrellas: ");
-                            int estrellas = sc.nextInt();
-                            System.out.print("Ingrese la habilidad pateadora[1-100]: ");
-                            int habilidadPateadora = sc.nextInt();
-                            System.out.print("Ingrese la fuerza[1-100]: ");
-                            int fuerza = sc.nextInt();
-                            System.out.print("Ingrese la habilidad ragateodora[1-100]: ");
-                            int habilidadRagateadora = sc.nextInt();
-                            jugadores.add(new Pateador(habilidadPateadora, fuerza, habilidadRagateadora, nombre, apodo, numeroCamiseta, equipoFutFsvorito, equipoFBaskFsvorito, equipoFutFsvorito, mayor, nacimiento, estrellas));
-                        }
-                        System.out.println("***TIRADORES***");
-                        for (int i = 0; i < 2; i++) {
-                            System.out.println("Nuevo Jugador");
-                            System.out.print("Ingrese el nombre del jugador: ");
-                            String nombre = sc.next();
-                            System.out.print("Ingrese el apodo del jugador: ");
-                            String apodo = sc.next();
-                            System.out.print("Ingrese el numero de camiseta: ");
-                            int numeroCamiseta = sc.nextInt();
-                            System.out.print("Ingrese el equipo de futbol favorito: ");
-                            String equipoFutFsvorito = sc.next();
-                            System.out.print("Ingrese el equipo de Basketball favorito: ");
-                            String equipoFBaskFsvorito = sc.next();
-                            boolean mayor;
-                            System.out.print("Es mayor de edad[s/n]: ");
-                            char age = sc.next().charAt(0);
-                            if (age == 's' || age == 'S') {
-                                mayor = true;
-                            } else {
-                                mayor = false;
-                            }
-                            System.out.print("Ingrese el año de nacimiento: ");
-                            int nacimiento = sc.nextInt();
-                            System.out.print("Ingrese la cantidad de estrellas: ");
-                            int estrellas = sc.nextInt();
-                            System.out.print("Ingrese el tiro de tres[1-100]: ");
-                            int tiroTres = sc.nextInt();
-                            System.out.print("Ingrese el tiro de dos[1-100]: ");
-                            int tiroDos = sc.nextInt();
-                            System.out.print("Ingrese el manejo del balon[1-100]: ");
-                            int manejoBalon = sc.nextInt();
-                            jugadores.add(new Tirador(tiroTres, tiroDos, manejoBalon, nombre, apodo, numeroCamiseta, equipoFutFsvorito, equipoFBaskFsvorito, equipoFutFsvorito, mayor, nacimiento, estrellas));
-                        }
-                        equipos.get(p).setJugadores(jugadores);*/
                     } else {
                         System.out.println("OPCION NO DISPONIBLE");
                     }
@@ -444,10 +369,55 @@ public class Lab4_CesarBrioKarimGuifarro {
         System.out.println(equipo1);
         System.out.println("Equipo 2:");
         System.out.println(equipo2);
+        String quienTiene;
+        String quienRecibe;
+        int turn = 1;
+        int passes = 0;
         int team1Points = 0;
         int team2Points = 0;
+        System.out.print("Ingrese el nombre de quien tiene la pelota: ");
+        String jugador = sc.next();
+        for (int i = 0; i < equipo1.size(); i++) {
+            if (equipo1.get(i).getNombre().equals(jugador)) {
+                quienTiene = equipo1.get(i).getNombre();
+            }
+        }
         while (team1Points != 12 || team2Points != 12) {
-
+            if (turn == 1) {
+                if (passes == 5) {
+                    System.out.println("Ya excedio 5 pases");
+                    passes = 0;
+                    turn = 2;
+                    break;
+                }
+                System.out.print("Ingrese el nombre de quien recibe la pelota: ");
+                jugador = sc.next();
+                for (int i = 0; i < equipo1.size(); i++) {
+                    if (equipo1.get(i).getNombre().equals(jugador) & passes < 5) {
+                        quienTiene = equipo1.get(i).getNombre();
+                    }
+                }
+                passes++;
+                System.out.println("Desea tirar[s/n]: ");
+                char tirar = sc.next().charAt(0);
+                if(tirar == 's'){
+                    
+                }
+            } else {
+                if (passes == 5) {
+                    System.out.println("Ya excedio 5 pases");
+                    passes = 0;
+                    turn = 1;
+                    break;
+                }
+                System.out.print("Ingrese el nombre de quien recibe la pelota: ");
+                jugador = sc.next();
+                for (int i = 0; i < equipo1.size(); i++) {
+                    if (equipo1.get(i).getNombre().equals(jugador) & passes < 5) {
+                        quienTiene = equipo1.get(i).getNombre();
+                    }
+                }
+            }
         }
         System.out.println("Puntos de equipo 1: " + team1Points);
         System.out.println("Puntos de equipo 2: " + team2Points);
